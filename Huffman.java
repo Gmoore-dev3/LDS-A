@@ -25,6 +25,7 @@ public class Huffman {
     }
 
     private static BinaryTrie findOptimalCode(HeapOfBinaryTries H) {
+        // ----------- TASK 3.B --------------- //
         // Continue until there's only one element left in the heap
         while (H.size() > 1) {
             // Extract the two nodes with the smallest frequency
@@ -85,5 +86,3 @@ public class Huffman {
         System.out.println(t);
     }
 }
-//Tis incorrect - Máistir Fawaz
-//A little improvement - Máistir Fawaz

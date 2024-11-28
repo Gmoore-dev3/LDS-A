@@ -11,64 +11,71 @@ public class HeapOfBinaryTries {
      */
 
     private void heapify(int i) {
-        int size = A.length;
-        int leftChild, rightChild, smallestIndex;
+        // ----------- TASK 3.A.a --------------- //
+        int leftChild, rightChild, current;
+            while (true) {
+                // get the indexes of the decendants
+                int start = (2 * i)+1;
+                leftChild = start;
+                rightChild = start + 1;
+                current = i;
 
-        while (true) {
-            int start = 2 * i;
-            leftChild = start;
-            rightChild = start + 1;
-            smallestIndex = i;
+                // If either decendant is smaller than current, swap current value
+                if (leftChild < heapsize && A[leftChild].compare(A[i])) {
+                    current = leftChild;
+                }
 
-            // Use compare method to compare elements
-            if (leftChild < size && A[leftChild].compare(A[smallestIndex])) {
-                smallestIndex = leftChild;
+                if (rightChild < heapsize && A[rightChild].compare(A[current])) {
+                    current = rightChild;
+                }
+
+                // current has changed, the heap has been violated and must be repaired
+                if(current != i){
+                    // Swap A[i] with A[current]
+                    BinaryTrie temp = A[i];
+                    A[i] = A[current];
+                    A[current] = temp;
+
+                    // repeat the prodecure for the exchanged decendants
+                    i = current;
+                }
+                else{break;}
             }
-
-            if (rightChild < size && A[rightChild].compare(A[smallestIndex])) {
-                smallestIndex = rightChild;
-            }
-
-            if (smallestIndex != i) {
-                 // Swap A[i] with A[smallestIndex]
-                BinaryTrie temp = A[i];
-                A[i] = A[smallestIndex];
-                A[smallestIndex] = temp;
-    
-                // Move down the tree
-                i = smallestIndex;
-            }
-            break; // The heap property is satisfied
-
-           
-        }
     }
 
+
     public HeapOfBinaryTries(BinaryTrie[] A) {
+        // ----------- TASK 3.A.b --------------- //
         this.A = A;
         this.heapsize = A.length;
-        for (int i = (heapsize / 2) - 1; i >= 0; i--) {
-            heapify(i);
+        // Heapify from the bottom to ensure that the heap is maintained correctly
+        for (int i = (heapsize / 2)-1; i >= 0; i--) {
+            heapify(i);   
         }
     }
 
     public BinaryTrie extractMin()
     {
-        // TASK 3.A.c
-        
+        // ----------- TASK 3.A.c --------------- //
+        // if the heap is empty, throw an exception
         if (heapsize == 0) {
             throw new IllegalStateException("Heap is empty");
         }
         
-        BinaryTrie min = A[0]; // Root value is the minimum
-        A[0] = A[heapsize - 1]; // Swap the last element to root
-        heapsize--; // Reduce heap size
-        heapify(0); // Re-heapify the root
+        // Copy the root value to min
+        BinaryTrie min = A[0];
+        // Copy the last element to the root position
+        A[0] = A[heapsize - 1];
+        // Reduce the heapsize by one to remove the duplicated element
+        heapsize--;
+        // Heapify at the root to maintain heap property
+        heapify(0);
         return min;
     }
 
     public void insert(BinaryTrie x) {
         // Increment the size of the heap
+        heapsize++;
         // Ensure there is enough space for the new element
         if (heapsize >= A.length) {
             // Expand the array if needed
@@ -77,14 +84,16 @@ public class HeapOfBinaryTries {
             A = newArray;
         }
         
-        heapsize++; // Increment the size of the heap
-        
         // Bubble up to maintain the heap property
-        int i = heapsize - 1; // Start from the last index
-        while (i > 0 && A[i].compare(A[(i - 1) / 2])) { // Check parent
+        // Start from the last index
+        int i = heapsize - 1;
+
+        // While there are nodes left to be checked and the current node is less than the parent
+        while (i > 0 && x.compare(A[(i - 1) / 2])) { 
+            // The current node is replaced with the value of the parent node
             A[i] = A[(i - 1) / 2];
-            // Move up in the tree
-            i = (i - 1) / 2; // Move to parent
+            // Move the index to reflect the new parent index
+            i = (i - 1) / 2; 
         }
         // Place the new element at the end of the heap
         A[i] = x;

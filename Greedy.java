@@ -4,27 +4,34 @@ import java.util.LinkedList;
 public class Greedy {
 
     public static LinkedList<Activity> activitySelection(LinkedList<Activity> activities) {
+        // ----------- TASK 1.B.a --------------- //
         LinkedList<Activity> noOverlap = new LinkedList<>();
-        int counter = 0;
 
-        // add the first element
+        // add the first element as the input list is sorted (given on spec)
         noOverlap.add(activities.get(0));
         
-        // check each element, reaching no overlap adds the element and increases the comparison index
+        /* check each element for an overlap against the most recent addition to noOverlap
+         * if an overlap doesn't exist, add the element to noOverlap
+        */
         for (int idx = 0; idx < activities.size(); idx++) {
             Activity CurrActivity = activities.get(idx);
-            if(!CurrActivity.overlap(noOverlap.get(counter))){
+            if(!CurrActivity.overlap(noOverlap.get(noOverlap.size() - 1))){
                 noOverlap.add(CurrActivity);
-                counter+=1;
             }
         }
         return noOverlap;
     }
 
     public static LinkedList<Integer> makeChange(int amount, int[] denominations) {
-        // TASK 1.B.b
+        // ----------- TASK 1.B.b --------------- //
         LinkedList<Integer> changeDue = new LinkedList<>();
         int num;
+
+        /* while the amount is more than a denomination, 
+         * remove the denomination from the amount and add the it to the list of change
+         * continue this until the amount has been entirely parsed
+         */
+
         for (int idx = 0; idx < denominations.length; idx++) {
             num = denominations[idx];
             while(num <= amount){
@@ -54,16 +61,3 @@ public class Greedy {
         makeChange(1234, new int[] { 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 }).forEach(i -> System.out.println(i));
     }
 }
-
-
-/*  
-V1 makeChange code
-        num = denominations[idx];
-        change = amount / num;
-        amount = amount % num;
-        if(change!=0){
-            for (int i = 0; i < change; i++) {
-                changeDue.add(num);
-            }
-}
-    */
