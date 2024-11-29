@@ -9,10 +9,10 @@ public class QuickSort {
         int pivot = A[r];
 
         // Initialize the i index tracker before the first element of the partition
-        int i = p - 1;
+        int i = p-1;
 
         // For each element in the partition
-        for (int j = p; j <= r - 1; j++) {
+        for (int j = p; j <= r-1; j++) {
             // If the element at tracker j is less than the pivot
             if(A[j] < pivot){
                 // Increment the index of the i tracker and swap the values at i and j
@@ -37,7 +37,7 @@ public class QuickSort {
 
     private static void quicksort(int[] A, int p, int r){
         // ----------- TASK 2.B.b --------------- //
-        if(r <= p) return; // base case because we cannot split the array any further
+        if(r <= p) return;              // base case because we cannot split the array any further
         int pivot = partition(A, p, r); // find the pivot
         quicksort(A, p, pivot-1);       // recursively call on the left array
         quicksort(A, pivot+1, r);       // recursively call on the right array

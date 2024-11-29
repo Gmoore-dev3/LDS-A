@@ -47,9 +47,9 @@ public class MergeSort {
         if(A.length <= 1){return A;}
 
         // created 2 arrays with enough indexs to fit all of A
-        int half = A.length / 2;
+        int half = A.length/2;
         int[] Arr1 = new int[half];
-        int[] Arr2 = new int[A.length - half];
+        int[] Arr2 = new int[A.length-half];
 
         // populate the half arrays with the elements of the original array (taking into account rounding of an odd sized array)
         for (int i = 0; i < Arr2.length; i++) {

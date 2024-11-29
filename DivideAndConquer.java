@@ -15,7 +15,7 @@ public class DivideAndConquer {
     public static int search(int[] A, int v){
         // ----------- TASK 1.A.b --------------- //
         int low = 0;
-        int high = A.length - 1;
+        int high = A.length-1;
         int mid = A.length/2;
         
         // optimisation calls for a possible quick return
@@ -76,6 +76,6 @@ public class DivideAndConquer {
             System.out.println(search(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, i));
         }
         System.out.println();
-        hanoi(3, 'A', 'B', 'C');
+        hanoi(4, 'A', 'B', 'C');
     }
 }
